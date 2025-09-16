@@ -349,14 +349,27 @@ def screen2():
     # These are simple random scores for demonstration.
     # You would replace this with logic that uses the extracted text analysis
     # and the metrics/benchmarks to calculate meaningful scores.
-    score_growth = random.uniform(0.1, 0.9)
-    score_churn = random.uniform(0.1, 0.9)
-    score_revenue = random.uniform(0.1, 0.9)
-    score_competition = random.uniform(0.1, 0.9)
+    
+    # score_growth = random.uniform(0.1, 0.9)
+    # score_churn = random.uniform(0.1, 0.9)
+    # score_revenue = random.uniform(0.1, 0.9)
+    # score_competition = random.uniform(0.1, 0.9)
 
     # Simple composite score and verdict based on random scores and weights
-    composite = (score_growth * w_growth + (1 - score_churn) * w_churn + score_revenue * w_revenue + (1 - score_competition) * w_competition) / (w_growth + w_churn + w_revenue + w_competition) # Simple weighted average (churn and competition are inverted)
+    # composite = (score_growth * w_growth + (1 - score_churn) * w_churn + score_revenue * w_revenue + (1 - score_competition) * w_competition) / (w_growth + w_churn + w_revenue + w_competition) # Simple weighted average (churn and competition are inverted)
 
+    score_growth = min(max((user_growth_pct - bench_growth_low) / max(bench_growth_high - bench_growth_low, 1e-6), 0.0), 1.0)
+    score_revenue = min(max((revenue - bench_revenue_low) / max(bench_revenue_high - bench_revenue_low, 1e-6), 0.0), 1.0)
+    score_churn = 1.0 - min(churn_pct / max(bench_churn * 2.0, 1e-6), 1.0)  # lower churn = higher score
+    score_competition = 1.0 - competition_pressure  # lower pressure = higher score
+
+    composite = (
+        w_growth * score_growth +
+        w_churn * score_churn +
+        w_revenue * score_revenue +
+        w_competition * score_competition
+    )
+    
     if composite >= 0.7:
         verdict_tone = "success"
         verdict = "Proceed (Strong)"
@@ -364,7 +377,7 @@ def screen2():
         verdict_tone = "warning"
         verdict = "Proceed with Caution"
     else:
-        verdict_tone = "error"
+        verdict_tone = "danger"
         verdict = "Pass for now"
 
     # --- End of Placeholder ---
