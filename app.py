@@ -97,9 +97,7 @@ def screen1():
     # Action button → Show Screen 2
     if st.button("🔎 Analyze Startup"):
         st.session_state["show_screen2"] = True
-        st.experimental_rerun()
-
-
+        st.rerun()
         """
         st.session_state["extracted_text"] = {} # Clear previous extractions
         st.session_state["analysis_results"] = None # Reset analysis results
