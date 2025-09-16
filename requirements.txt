@@ -1,0 +1,5 @@
+streamlit
+pandas
+unstructured
+google-generativeai
+python-docx
