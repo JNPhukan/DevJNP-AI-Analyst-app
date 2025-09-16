@@ -316,58 +316,58 @@ def screen2():
     competition_recent_raise = st.toggle("📰 Competitor raised a large round recently", value=True, help="If ON, we assume higher competitive pressure.")
     competition_pressure = 0.7 if competition_recent_raise else 0.3  # 0 (low) .. 1 (high)
 
-        # Status helpers
-        def status_for_growth(growth_pct: float) -> str:
-            if growth_pct >= bench_growth_high:
-                return BADGE_OK
-            if growth_pct >= bench_growth_low:
-                return BADGE_WARN
-            return BADGE_RISK
+    # Status helpers
+    def status_for_growth(growth_pct: float) -> str:
+        if growth_pct >= bench_growth_high:
+            return BADGE_OK
+        if growth_pct >= bench_growth_low:
+            return BADGE_WARN
+        return BADGE_RISK
 
-        def status_for_revenue(rev: float) -> str:
-            if rev >= bench_revenue_high:
-                return BADGE_OK
-            if rev >= bench_revenue_low:
-                return BADGE_WARN
-            return BADGE_RISK
+    def status_for_revenue(rev: float) -> str:
+        if rev >= bench_revenue_high:
+            return BADGE_OK
+        if rev >= bench_revenue_low:
+            return BADGE_WARN
+        return BADGE_RISK
 
-        def status_for_churn(churn: float) -> str:
-            if churn <= bench_churn:
-                return BADGE_OK
-            if churn <= bench_churn * 1.5:
-                return BADGE_WARN
-            return BADGE_RISK
+    def status_for_churn(churn: float) -> str:
+        if churn <= bench_churn:
+            return BADGE_OK
+        if churn <= bench_churn * 1.5:
+            return BADGE_WARN
+        return BADGE_RISK
 
-        def status_for_hiring(h: int) -> str:
-            if h >= bench_hiring_low and h <= bench_hiring_high:
-                return BADGE_OK
-            if h > bench_hiring_high:
-                return BADGE_WARN  # fast hiring could be okay but watch burn
-            return BADGE_WARN if h > 0 else BADGE_RISK
+    def status_for_hiring(h: int) -> str:
+        if h >= bench_hiring_low and h <= bench_hiring_high:
+            return BADGE_OK
+        if h > bench_hiring_high:
+            return BADGE_WARN  # fast hiring could be okay but watch burn
+        return BADGE_WARN if h > 0 else BADGE_RISK
 
-        # --- Placeholder Scoring and Verdict (Replace with actual logic) ---
-        # These are simple random scores for demonstration.
-        # You would replace this with logic that uses the extracted text analysis
-        # and the metrics/benchmarks to calculate meaningful scores.
-        score_growth = random.uniform(0.1, 0.9)
-        score_churn = random.uniform(0.1, 0.9)
-        score_revenue = random.uniform(0.1, 0.9)
-        score_competition = random.uniform(0.1, 0.9)
+    # --- Placeholder Scoring and Verdict (Replace with actual logic) ---
+    # These are simple random scores for demonstration.
+    # You would replace this with logic that uses the extracted text analysis
+    # and the metrics/benchmarks to calculate meaningful scores.
+    score_growth = random.uniform(0.1, 0.9)
+    score_churn = random.uniform(0.1, 0.9)
+    score_revenue = random.uniform(0.1, 0.9)
+    score_competition = random.uniform(0.1, 0.9)
 
-        # Simple composite score and verdict based on random scores and weights
-        composite = (score_growth * w_growth + (1 - score_churn) * w_churn + score_revenue * w_revenue + (1 - score_competition) * w_competition) / (w_growth + w_churn + w_revenue + w_competition) # Simple weighted average (churn and competition are inverted)
+    # Simple composite score and verdict based on random scores and weights
+    composite = (score_growth * w_growth + (1 - score_churn) * w_churn + score_revenue * w_revenue + (1 - score_competition) * w_competition) / (w_growth + w_churn + w_revenue + w_competition) # Simple weighted average (churn and competition are inverted)
 
-        if composite >= 0.7:
-            verdict_tone = "success"
-            verdict = "Proceed (Strong)"
-        elif composite >= 0.4:
-            verdict_tone = "warning"
-            verdict = "Proceed with Caution"
-        else:
-            verdict_tone = "error"
-            verdict = "Pass for now"
+    if composite >= 0.7:
+        verdict_tone = "success"
+        verdict = "Proceed (Strong)"
+    elif composite >= 0.4:
+        verdict_tone = "warning"
+        verdict = "Proceed with Caution"
+    else:
+        verdict_tone = "error"
+        verdict = "Pass for now"
 
-        # --- End of Placeholder ---
+    # --- End of Placeholder ---
 
     #st.title("Startup Evaluation AI Analyst - Analysis Results")
     
