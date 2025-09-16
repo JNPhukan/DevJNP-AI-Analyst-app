@@ -312,9 +312,9 @@ def screen2():
         if users_start > 0:
             user_growth_pct = (users_end - users_start) / users_start * 100.0
 
-        # Simple competitive pressure toggle (mock)
-        competition_recent_raise = st.toggle("📰 Competitor raised a large round recently", value=True, help="If ON, we assume higher competitive pressure.")
-        competition_pressure = 0.7 if competition_recent_raise else 0.3  # 0 (low) .. 1 (high)
+    # Simple competitive pressure toggle (mock)
+    competition_recent_raise = st.toggle("📰 Competitor raised a large round recently", value=True, help="If ON, we assume higher competitive pressure.")
+    competition_pressure = 0.7 if competition_recent_raise else 0.3  # 0 (low) .. 1 (high)
 
         # Status helpers
         def status_for_growth(growth_pct: float) -> str:
